@@ -60,7 +60,6 @@ module.exports = class ContenedorArchivo {
                     contenidoArchivo.splice(indice,1)
                 }   
         await this.writeFile(contenidoArchivo);
-        return resultado
     }
 
     async deleteAll(){

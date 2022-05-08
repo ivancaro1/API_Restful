@@ -1,13 +1,14 @@
 const express = require('express');
-const { Router } = express.Router
 const { routerProductos } = require('./routers/routerProductos.js')
-//const { controladorApi } = require('./controllers/controladorApi.js')
+const { routerWeb } = require('./routers/routerFormulario.js')
+
 
 const app = express();
 
 /* ------------------------------------------------------ */
 /* Cargo los routers */
-
+app.use(express.static('public'))
+app.use(routerWeb)
 app.use(routerProductos)
 
 /* ------------------------------------------------------ */

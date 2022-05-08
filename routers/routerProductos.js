@@ -1,29 +1,17 @@
+const express = require('express');
 const { Router } = require('express')
-const clase = require('./databases/ProdutcsClass.js')
+const { productsController } = require('../controllers/controladorApi.js')
 
-const productos = new clase('./productos_resultado.txt')
+const routerProductos = new Router();
 
-const routerProductos = Router();
+routerProductos.use(express.json());
+routerProductos.use(express.urlencoded({extended: true}));
 
-const productsController = {
-    async getAll (req,res) {
-        const allProducts = await productos.getAll();
-        await res.json(allProducts)
-    },
-    async getRandom (req,res) {
-        const randomProduct = await productos.getRandom();
-        await res.json(randomProduct)
-    }
-}
-
-// app.get('/api/productos/:id', (req,res)=>{
-//     const { id } = req.params
-//     await res.json(randomProduct)
-// })
-
-
-routerProductos.get('/', productsController.getAll);
-
-routerProductos.get('/productosRandom', productsController.getRandom);
+routerProductos.get('/api/productos', productsController.getAll);
+routerProductos.post('/api/productos', productsController.save);
+routerProductos.get('/api/productos/:id', productsController.getById);
+routerProductos.delete('/api/productos/:id', productsController.deleteById);
+routerProductos.put('/api/productos/:id', productsController.replaceProduct);
+routerProductos.get('/api/productos/productosRandom', productsController.getRandom);
 
 module.exports = { routerProductos };

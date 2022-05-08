@@ -10,8 +10,10 @@ module.exports = class ContenedorArchivo {
     async save(producto){   
         let contenidoArchivo;                                   // creates contenidoArchivo variable
         contenidoArchivo = await this.getAll();
+        producto.id = await this.generateID();
         contenidoArchivo.push(producto) ;
         await this.writeFile(contenidoArchivo);
+        return producto
     }
 
     async getById(id_producto){
@@ -75,5 +77,41 @@ module.exports = class ContenedorArchivo {
         contenidoArchivo = await this.getAll() 
         let keys = Object.keys(contenidoArchivo);
         return contenidoArchivo[keys[ keys.length * Math.random() << 0]];
+    }
+
+    async generateID(){
+        let contenidoArchivo;
+        contenidoArchivo = await this.getAll()
+        let max = 0;
+        contenidoArchivo.forEach(contenidoArchivo => {
+            if (contenidoArchivo.id > max) {
+                max = contenidoArchivo.id;
+            }
+        }) 
+        if (max == 0){
+            return 1
+        } else{
+            return max + 1
+        }      
+    }
+
+    async replaceProduct (id_producto,datos){
+        let contenidoArchivo;
+
+        contenidoArchivo = await this.getAll();
+
+        const foundIndex = contenidoArchivo.findIndex(p => p.id  === id_producto);
+
+        if (foundIndex === -1) {
+            const error = new Error('no existe una persona con ese id')
+            error.tipo = 'db not found'
+            throw error
+        }
+
+        const product = datos
+        product.id = id_producto
+        contenidoArchivo[foundIndex] = product
+        await this.writeFile(contenidoArchivo);
+        return product
     }
  }

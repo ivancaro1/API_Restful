@@ -1,13 +1,14 @@
 const express = require('express');
+const { Router } = express.Router
 const { routerProductos } = require('./routers/routerProductos.js')
-const { controladorApi } = require('./controllers/controladorApi.js')
+//const { controladorApi } = require('./controllers/controladorApi.js')
 
 const app = express();
 
 /* ------------------------------------------------------ */
 /* Cargo los routers */
 
-app.use('/api/productos', routerProductos)
+app.use(routerProductos)
 
 /* ------------------------------------------------------ */
 /* Server Listen */

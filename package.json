@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "description": "levantamiento de un servidor con express",
   "scripts": {
-    "test": "nodemon test.js",
     "start": "node server.js"
   },
   "author": "ivancaro1 <ivanfelipecaro98@gmail.com>",
@@ -16,7 +15,7 @@
   "devDependencies": {
     "nodemon": "^2.0.15"
   },
-  "main": "main.js",
+  "main": "server.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ivancaro1/servidor_express.git"

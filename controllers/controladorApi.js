@@ -22,7 +22,7 @@ const productsController = {
         const requiredProduct = await productos.getById(parseInt(id));
             await res.json(requiredProduct)
         } catch (error) {
-            if (error.tipo === 'db not found') {
+            if (error.tipo === 'producto no encontrado') {
                 await res.status(404).json({ error: error.message })
             } else {
                 await res.status(500).json({ error: error.message })
@@ -35,10 +35,10 @@ const productsController = {
             await productos.deleteById(parseInt(id));
             await res.sendStatus(204)
         } catch (error) {
-            if (error.tipo === 'db not found') {
-                await res.status(404).json({ error: error.message })
+            if (error.tipo === 'producto no encontrado') {
+                await res.status(404).json({ error: 'producto no encontrado' })
             } else {
-                await res.status(500).json({ error: error.message })
+                await res.status(500).json({ error: 'producto no encontrado' })
             }
         }
     },

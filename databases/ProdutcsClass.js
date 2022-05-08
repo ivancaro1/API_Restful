@@ -27,7 +27,7 @@ module.exports = class ContenedorArchivo {
 
         let resultado = contenidoArchivo.find(encontroId);  // callback encontroId function to extract the object with the id selected
             if(resultado === undefined){                        // if does not find a value returns null
-                resultado = null;
+                resultado = {error: 'producto no encontrado'};
             }   
         return resultado;
     }
@@ -51,10 +51,16 @@ module.exports = class ContenedorArchivo {
 
         contenidoArchivo = await this.getAll()
             let resultado = contenidoArchivo.find(encontroId);  // callback encontroId function to extract the object with the id selected
-            let indice = contenidoArchivo.indexOf(resultado);    // finds the index in the array of the id selected
-                contenidoArchivo.splice(indice,1)   
-
+                if(resultado === undefined){                        // if does not find a value returns null
+                    throw error;
+                    // resultado = {error: 'producto no encontrado'};
+                }else{ 
+                    resultado = {estado: 'eliminado'};
+                    let indice = contenidoArchivo.indexOf(resultado);    // finds the index in the array of the id selected
+                    contenidoArchivo.splice(indice,1)
+                }   
         await this.writeFile(contenidoArchivo);
+        return resultado
     }
 
     async deleteAll(){

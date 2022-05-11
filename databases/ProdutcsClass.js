@@ -19,17 +19,15 @@ module.exports = class ContenedorArchivo {
     async getById(id_producto){
         let contenidoArchivo;                                   // creates contenidoArchivo variable
 
-        function encontroId(objeto) {                           // declares a function to find the id_producto selected
-            return objeto.id === id_producto;
-        }
-        
         contenidoArchivo = await this.getAll();
+        const foundIndex = contenidoArchivo.findIndex(p => p.id  === id_producto);
 
-        let resultado = contenidoArchivo.find(encontroId);  // callback encontroId function to extract the object with the id selected
-            if(resultado === undefined){                        // if does not find a value returns null
-                resultado = {error: 'producto no encontrado'};
-            }   
-        return resultado;
+        if (foundIndex === -1) {
+            const error = new Error('producto no encontrado')
+            error.tipo = 'db not found'
+            throw error
+        }  
+        return contenidoArchivo[foundIndex];
     }
 
     async getAll(){
@@ -45,20 +43,16 @@ module.exports = class ContenedorArchivo {
     async deleteById(id_producto){                                    
         let contenidoArchivo;                                   // creates contenidoArchivo variable
 
-        function encontroId(objeto) {                           // starts of leerArchivo async function to read products in the file
-            return objeto.id === id_producto;
-        }
+        contenidoArchivo = await this.getAll();
+        const foundIndex = contenidoArchivo.findIndex(p => p.id  === id_producto);
 
-        contenidoArchivo = await this.getAll()
-            let resultado = contenidoArchivo.find(encontroId);  // callback encontroId function to extract the object with the id selected
-                if(resultado === undefined){                        // if does not find a value returns null
-                    throw error;
-                    // resultado = {error: 'producto no encontrado'};
-                }else{ 
-                    resultado = {estado: 'eliminado'};
-                    let indice = contenidoArchivo.indexOf(resultado);    // finds the index in the array of the id selected
-                    contenidoArchivo.splice(indice,1)
-                }   
+        if (foundIndex === -1) {
+            const error = new Error('producto no encontrado')
+            error.tipo = 'db not found'
+            throw error
+        }  
+
+        contenidoArchivo.splice(foundIndex,1)
         await this.writeFile(contenidoArchivo);
     }
 
@@ -108,7 +102,7 @@ module.exports = class ContenedorArchivo {
         const foundIndex = contenidoArchivo.findIndex(p => p.id  === id_producto);
 
         if (foundIndex === -1) {
-            const error = new Error('no existe una persona con ese id')
+            const error = new Error('producto no encontrado')
             error.tipo = 'db not found'
             throw error
         }

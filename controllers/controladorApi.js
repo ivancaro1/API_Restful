@@ -22,10 +22,10 @@ const productsController = {
         const requiredProduct = await productos.getById(parseInt(id));
             await res.json(requiredProduct)
         } catch (error) {
-            if (error.tipo === 'producto no encontrado') {
-                await res.status(404).json({ error: error.message })
+            if (error.tipo === 'db not found') {
+                await res.status(404).json({ error: 'producto no encontrado' })
             } else {
-                await res.status(500).json({ error: error.message })
+                await res.status(500).json({ error: 'producto no encontrado' })
             }
         }
     },
@@ -35,7 +35,7 @@ const productsController = {
             await productos.deleteById(parseInt(id));
             await res.sendStatus(204)
         } catch (error) {
-            if (error.tipo === 'producto no encontrado') {
+            if (error.tipo === 'db not found') {
                 await res.status(404).json({ error: 'producto no encontrado' })
             } else {
                 await res.status(500).json({ error: 'producto no encontrado' })
@@ -45,8 +45,16 @@ const productsController = {
     async replaceProduct (req,res){
         const id = req.params.id;
         const datos = req.body;
+        try {
         const replacedProduct = await productos.replaceProduct(parseInt(id), datos);
-        await res.json(replacedProduct)
+            await res.json(replacedProduct)
+        }catch (error) {
+            if (error.tipo === 'db not found') {
+                await res.status(404).json({ error: error.message })
+            } else {
+                await res.status(500).json({ error: error.message })
+            }
+        }
     }
 }
 

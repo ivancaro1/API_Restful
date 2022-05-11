@@ -18,9 +18,15 @@
     "id": 3
   },
   {
-    "title": "Olga",
-    "price": "999",
-    "thumbnail": "www.amor.com",
-    "id": 4
+    "title": "Cloe",
+    "price": "23",
+    "thumbnail": "www.google.com",
+    "id": "1652238157850"
+  },
+  {
+    "title": "Mama",
+    "price": "23",
+    "thumbnail": "www.google.com",
+    "id": "1652238176796"
   }
 ]

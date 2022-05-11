@@ -12,6 +12,6 @@ routerProductos.post('/api/productos', productsController.save);
 routerProductos.get('/api/productos/:id', productsController.getById);
 routerProductos.delete('/api/productos/:id', productsController.deleteById);
 routerProductos.put('/api/productos/:id', productsController.replaceProduct);
-routerProductos.get('/api/productos/productosRandom', productsController.getRandom);
+routerProductos.get('/api/productosRandom', productsController.getRandom);
 
 module.exports = { routerProductos };

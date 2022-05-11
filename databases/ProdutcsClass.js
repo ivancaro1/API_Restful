@@ -79,19 +79,20 @@ module.exports = class ContenedorArchivo {
     }
 
     async generateID(){
-        let contenidoArchivo;
-        contenidoArchivo = await this.getAll()
-        let max = 0;
-        contenidoArchivo.forEach(contenidoArchivo => {
-            if (contenidoArchivo.id > max) {
-                max = contenidoArchivo.id;
-            }
-        }) 
-        if (max == 0){
-            return 1
-        } else{
-            return max + 1
-        }      
+        // let contenidoArchivo;
+        // contenidoArchivo = await this.getAll()
+        // let max = 0;
+        // contenidoArchivo.forEach(contenidoArchivo => {
+        //     if (contenidoArchivo.id > max) {
+        //         max = contenidoArchivo.id;
+        //     }
+        // }) 
+        // if (max == 0){
+        //     return 1
+        // } else{
+        //     return max + 1
+        // }      
+        return `${Date.now()}`
     }
 
     async replaceProduct (id_producto,datos){

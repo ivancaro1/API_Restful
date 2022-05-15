@@ -92,7 +92,7 @@ module.exports = class ContenedorArchivo {
         // } else{
         //     return max + 1
         // }      
-        return `${Date.now()}`
+        return parseInt(`${Date.now()}`)
     }
 
     async replaceProduct (id_producto,datos){

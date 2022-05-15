@@ -19,14 +19,8 @@
   },
   {
     "title": "Cloe",
-    "price": "23",
+    "price": "1",
     "thumbnail": "www.google.com",
-    "id": "1652238157850"
-  },
-  {
-    "title": "Mama",
-    "price": "23",
-    "thumbnail": "www.google.com",
-    "id": "1652238176796"
+    "id": 1652581199319
   }
 ]
